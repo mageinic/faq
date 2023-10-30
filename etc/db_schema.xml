@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * MageINIC
+ * Copyright (C) 2023 MageINIC <support@mageinic.com>
+ *
+ * NOTICE OF LICENSE
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see https://opensource.org/licenses/gpl-3.0.html.
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category MageINIC
+ * @package MageINIC_Faq
+ * @copyright Copyright (c) 2023 MageINIC (https://www.mageinic.com/)
+ * @license https://opensource.org/licenses/gpl-3.0.html GNU General Public License,version 3 (GPL-3.0)
+ * @author MageINIC <support@mageinic.com>
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="mageinic_faq_category" resource="default" engine="innodb"
+           comment="FAQ Category">
+        <column xsi:type="int" name="category_id" padding="11" unsigned="false" nullable="false" identity="true"
+                comment="Category ID"/>
+        <column xsi:type="int" name="status" padding="11" unsigned="false" nullable="false" identity="false"
+                comment="Category Status"/>
+        <column xsi:type="varchar" name="category_name" length="255" nullable="false" comment="Category Name"/>
+        <column xsi:type="varchar" name="image" nullable="true" length="255" comment="Category image"/>
+        <column xsi:type="int" name="sort_order" padding="11" unsigned="false" nullable="false" identity="false"
+                comment="Category SortOrder"/>
+        <column xsi:type="varchar" name="identifier" nullable="true" length="255" comment="FAQ String Identifier"/>
+        <column xsi:type="timestamp" name="created_date" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Category Created Date"/>
+        <column xsi:type="timestamp" name="updated_date" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Category Updated Date"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="category_id"/>
+        </constraint>
+        <index referenceId="MAGEINIC_FAQ_CATEGORY_CATEGORY_NAME_IDENTIFIER" indexType="fulltext">
+            <column name="category_name"/>
+            <column name="identifier"/>
+        </index>
+    </table>
+    <table name="mageinic_faq_category_store" resource="default" engine="innodb"
+           comment="List of FAQ Category Store">
+        <column xsi:type="int" name="store_id" padding="11" unsigned="false" nullable="false" identity="false"
+                comment="Store ID"/>
+        <column xsi:type="int" name="category_id" padding="11" unsigned="false" nullable="false" identity="false"
+                comment="Category ID" default="0"/>
+        <constraint xsi:type="foreign" referenceId="CAT_PRD_ENTT_DTIME_ATTR_ID_EAV_ATTR_ATTR_ID"
+                    table="mageinic_faq_category_store" column="category_id" referenceTable="mageinic_faq_category"
+                    referenceColumn="category_id" onDelete="CASCADE"/>
+    </table>
+    <table name="mageinic_faq" resource="default" engine="innodb"
+           comment="Faq data">
+        <column xsi:type="int" name="faq_id" padding="11" unsigned="false" nullable="false" identity="true"
+                comment="Faq ID"/>
+        <column xsi:type="int" name="status" padding="11" unsigned="false" nullable="false" identity="false"
+                comment="Faq Status"/>
+        <column xsi:type="int" name="category_id" padding="11" unsigned="false" nullable="true" identity="false"
+                comment="Faq Category Id"/>
+        <column xsi:type="varchar" name="title" length="255" nullable="false" comment="Faq Title"/>
+        <column xsi:type="text" name="answer" nullable="true" comment="Faq Answer"/>
+        <column xsi:type="varchar" name="sender_name" length="255" nullable="false" comment="Faq Sender Name"/>
+        <column xsi:type="varchar" name="sender_email" length="255" nullable="false" comment="Faq Sender Email"/>
+        <column xsi:type="int" name="visibility" padding="11" unsigned="false" nullable="true" identity="false"
+                comment="Faq Visibility"/>
+        <column xsi:type="smallint" name="most_frequently" padding="6" unsigned="false" nullable="false"
+                identity="false" default="0" comment="FAQ Most Frequently"/>
+        <column xsi:type="varchar" name="identifier" nullable="true" length="255" comment="FAQ String Identifier"/>
+        <column xsi:type="int" name="sort_order" padding="11" unsigned="false" nullable="true" identity="false"
+                comment="Faq SortOrder"/>
+        <column xsi:type="timestamp" name="created_date" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Faq Created Date"/>
+        <column xsi:type="timestamp" name="updated_date" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Faq Date"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="faq_id"/>
+        </constraint>
+        <index referenceId="MAGEINIC_FAQ_TITLE_ANSWER_IDENTIFIER_SENDER_NAME_SENDER_EMAIL" indexType="fulltext">
+            <column name="title"/>
+            <column name="answer"/>
+            <column name="identifier"/>
+            <column name="sender_name"/>
+            <column name="sender_email"/>
+        </index>
+    </table>
+    <table name="mageinic_faq_store" resource="default" engine="innodb"
+           comment="List of Faq store">
+        <column xsi:type="int" name="store_id" padding="11" unsigned="false" nullable="false" identity="false"
+                comment="Store ID"/>
+        <column xsi:type="int" name="faq_id" padding="11" unsigned="false" nullable="false" identity="false"
+                comment="Category ID" default="0"/>
+        <constraint xsi:type="foreign" referenceId="CAT_PRD_ENTT_DTIME_ATTR_ID_EAV_ATTR_ATTR_ID"
+                    table="mageinic_faq_store" column="faq_id" referenceTable="mageinic_faq"
+                    referenceColumn="faq_id" onDelete="CASCADE"/>
+    </table>
+    <table name="mageinic_faq_category_relation" resource="default" engine="innodb"
+           comment="MageINIC Faq Category Relation">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" identity="true" nullable="false"
+                comment="Entity Id"/>
+        <column xsi:type="int" name="faq_id" padding="11" unsigned="false" nullable="false" identity="false"
+                comment="Faq ID"/>
+        <column xsi:type="int" name="category_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Product ID"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+            <column name="faq_id"/>
+            <column name="category_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="MAGEINIC_FAQ_CATEGORY_RELATION_FAQ_ID_MAGEINIC_FAQ_FAQ_ID"
+                    table="mageinic_faq_category_relation"
+                    column="faq_id" referenceTable="mageinic_faq" referenceColumn="faq_id"
+                    onDelete="CASCADE"/>
+        <constraint xsi:type="unique" referenceId="MAGEINIC_SLIDER_BANNER_SLIDER_ID_BANNER_ID">
+            <column name="faq_id"/>
+            <column name="category_id"/>
+        </constraint>
+        <index referenceId="MAGEINIC_FAQ_FAQ_FAQ_ID" indexType="btree">
+            <column name="faq_id"/>
+        </index>
+    </table>
+    <table name="mageinic_faq_product_relation" resource="default" engine="innodb"
+           comment="MageINIC">
+        <column xsi:type="int" name="faq_id" padding="11" unsigned="false" nullable="false" identity="false"
+                comment="Faq ID"/>
+        <column xsi:type="int" name="product_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Product ID"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="faq_id"/>
+            <column name="product_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="MAGEINIC_FAQ_PRODUCT_RELATION_FAQ_ID_MAGEINIC_FAQ_FAQ_ID"
+                    table="mageinic_faq_product_relation"
+                    column="faq_id" referenceTable="mageinic_faq" referenceColumn="faq_id"
+                    onDelete="CASCADE"/>
+        <constraint xsi:type="foreign"
+                    referenceId="MAGEINIC_FAQ_PRODUCT_RELATION_PRODUCT_ID_CATALOG_PRODUCT_ENTITY_ENTITY_ID"
+                    table="mageinic_faq_product_relation" column="product_id"
+                    referenceTable="catalog_product_entity"
+                    referenceColumn="entity_id" onDelete="CASCADE"/>
+    </table>
+</schema>

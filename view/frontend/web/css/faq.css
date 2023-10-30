@@ -1,0 +1,49 @@
+/**
+ * MageINIC
+ * Copyright (C) 2023 MageINIC <support@mageinic.com>
+ *
+ * NOTICE OF LICENSE
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see https://opensource.org/licenses/gpl-3.0.html.
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category MageINIC
+ * @package MageINIC_Faq
+ * @copyright Copyright (c) 2023 MageINIC (https://www.mageinic.com/)
+ * @license https://opensource.org/licenses/gpl-3.0.html GNU General Public License,version 3 (GPL-3.0)
+ * @author MageINIC <support@mageinic.com>
+ */
+/*Category slider*/
+.faq-slider {padding-bottom: 25px;display: block;}
+.faq-slider .slick-slider {padding: 0;}
+.faq-slider .slick-slider .slick-arrow:before{ background:none !important; font-size: 40px !important; line-height: 26px !important;}
+.faq-slider .slick-slider .slick-arrow:hover, .faq-slider .slick-slider .slick-arrow:focus{ background: #fff; }
+.faq-slider .slick-slider .slick-track .category-group-image{ margin: 0 5px; }
+.faq-slider .slick-slider .slick-arrow.slick-prev{ left: 10px; }
+.faq-slider .slick-slider .slick-arrow.slick-prev:before {left: 0;position: absolute;top: 0;}
+.faq-slider .slick-slider .slick-arrow.slick-next{ right: 10px; }
+.faq-slider .slick-slider .slick-arrow.slick-next:before {top: 0;right: 0;position: absolute;}
+.faq-slider .slick-dots{ bottom: -33px; }
+.faq-slider .slick-dots li {border: 1px solid;border-radius: 100%;}
+.faq-slider .slick-dots li button:hover {background: #000;border: 0;}
+.category-groupname {margin-top: 10px;}
+.category-groupname a {font-size: 14px;font-weight: 600;color: #000;}
+
+/*FAQ Accordion*/
+.faq-content{ display:block; width: 100%; }
+.faq-category-que { margin-bottom: 40px; }
+.faq-category-que .faq-main .items.faqs-list .item { border: 1px solid #c2c2c2; border-radius: 6px; margin-bottom: 1rem;    }
+.faq-category-que .faq-main .items.faqs-list .item .faq-title { padding: 10px; cursor: pointer; display: flex; justify-content: space-between;}
+.faq-category-que .faq-main .items.faqs-list .item .faq-title .down-arrow:before { font-size: 12px; line-height: 20px; color: inherit; content: '\e622'; font-family: 'luma-icons'; vertical-align: middle; display: inline-block; font-weight: normal; overflow: hidden; speak: none; text-align: center; }
+.faq-category-que .faq-main .items.faqs-list .item .faq-title.active .down-arrow:before { transform: scale(-1); }
+.faq-category-que .faq-main .items.faqs-list .item .faq-ans { padding: 0 10px 10px; }
+.faq-category-que .faq-main .items.faqs-list .item .faq-ans .faq-details { font-size: 12px; }
+.faq-category-que .faq-main .items.faqs-list .item .faq-ans .faq-details span { color: #9d9b9b; }

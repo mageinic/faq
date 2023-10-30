@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * MageINIC
+ * Copyright (C) 2023 MageINIC <support@mageinic.com>
+ *
+ * NOTICE OF LICENSE
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see https://opensource.org/licenses/gpl-3.0.html.
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category MageINIC
+ * @package MageINIC_Faq
+ * @copyright Copyright (c) 2023 MageINIC (https://www.mageinic.com/)
+ * @license https://opensource.org/licenses/gpl-3.0.html GNU General Public License,version 3 (GPL-3.0)
+ * @author MageINIC <support@mageinic.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="MageINIC_Faq::faq_head"
+             title="FAQ"
+             module="MageINIC_Faq"
+             sortOrder="100"
+             resource="MageINIC_Faq::faq_head"
+             parent="MageINIC_Core::core"/>
+        <add id="MageINIC_Faq::faq"
+             title="FAQ Questions"
+             module="MageINIC_Faq"
+             sortOrder="30"
+             parent="MageINIC_Faq::faq_head"
+             action="faq/faq"
+             resource="MageINIC_Faq::faq"/>
+        <add id="MageINIC_Faq::category"
+             title="FAQ Categories"
+             module="MageINIC_Faq"
+             sortOrder="40"
+             parent="MageINIC_Faq::faq_head"
+             action="faq/category"
+             resource="MageINIC_Faq::category"/>
+        <add id="MageINIC_Faq::configuration"
+             title="Configuration"
+             module="MageINIC_Faq"
+             sortOrder="1000" action="adminhtml/system_config/edit/section/mageinic"
+             resource="MageINIC_Faq::configuration"
+             parent="MageINIC_Faq::faq_head"/>
+    </menu>
+</config>

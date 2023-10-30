@@ -1,0 +1,27 @@
+{
+    "name": "mageinic/faq",
+    "description": "FAQ and Products by MageINIC team",
+    "version": "1.0.0",
+    "require": {
+        "php": "^8.0"
+    },
+    "type": "magento2-module",
+    "keywords": ["mageinic", "core", "magento 2"],
+    "homepage": "https://github.com/mageinic",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "MageINIC",
+            "email": "support@mageinic.com",
+            "homepage": "https://www.mageinic.com"
+        }
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "MageINIC\\Faq\\": ""
+        }
+    }
+}

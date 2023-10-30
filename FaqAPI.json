@@ -1,0 +1,131 @@
+{
+	"info": {
+		"_postman_id": "90fd735c-2885-40e2-b883-eb3656498fee",
+		"name": "FaqAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get category id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/rest/all/V1/faq/category/3",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"rest",
+						"all",
+						"V1",
+						"faq",
+						"category",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "faq search",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/rest/all/V1/faq/search?searchCriteria[pageSize]=10&searchCriteria[currentPage]=1&searchCriteria[sortOrders][0][field]=title&searchCriteria[sortOrders][0][direction]=asc",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"rest",
+						"all",
+						"V1",
+						"faq",
+						"search"
+					],
+					"query": [
+						{
+							"key": "searchCriteria[pageSize]",
+							"value": "10"
+						},
+						{
+							"key": "searchCriteria[currentPage]",
+							"value": "1"
+						},
+						{
+							"key": "searchCriteria[sortOrders][0][field]",
+							"value": "title"
+						},
+						{
+							"key": "searchCriteria[sortOrders][0][direction]",
+							"value": "asc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get faq by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/rest/all/V1/faq/3",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"rest",
+						"all",
+						"V1",
+						"faq",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "category search",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/rest/all/V1/faq/category/?searchCriteria[pageSize]=10&searchCriteria[currentPage]=1&searchCriteria[sortOrders][0][field]=category_name&searchCriteria[sortOrders][0][direction]=asc",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"rest",
+						"all",
+						"V1",
+						"faq",
+						"category",
+						""
+					],
+					"query": [
+						{
+							"key": "searchCriteria[pageSize]",
+							"value": "10"
+						},
+						{
+							"key": "searchCriteria[currentPage]",
+							"value": "1"
+						},
+						{
+							"key": "searchCriteria[sortOrders][0][field]",
+							"value": "category_name"
+						},
+						{
+							"key": "searchCriteria[sortOrders][0][direction]",
+							"value": "asc"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

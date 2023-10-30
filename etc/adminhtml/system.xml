@@ -1,0 +1,174 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * MageINIC
+ * Copyright (C) 2023 MageINIC <support@mageinic.com>
+ *
+ * NOTICE OF LICENSE
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see https://opensource.org/licenses/gpl-3.0.html.
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category MageINIC
+ * @package MageINIC_Faq
+ * @copyright Copyright (c) 2023 MageINIC (https://www.mageinic.com/)
+ * @license https://opensource.org/licenses/gpl-3.0.html GNU General Public License,version 3 (GPL-3.0)
+ * @author MageINIC <support@mageinic.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="mageinic" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="5"
+                 translate="label">
+            <class>separator-top</class>
+            <label>FAQ</label>
+            <tab>mageinic</tab>
+            <resource>MageINIC_Faq::configuration</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>FAQ Configuration</label>
+                <field id="faq_enable" translate="label comment" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="faq_questions_display" translate="label" type="text" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Number of questions to display</label>
+                    <depends>
+                        <field id="faq_enable">1</field>
+                    </depends>
+                </field>
+                <field id="footer_link_display" translate="label comment" type="select" sortOrder="30" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Footer Link Display</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="faq_enable">1</field>
+                    </depends>
+                </field>
+                <field id="page_title" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Page Title</label>
+                    <depends>
+                        <field id="faq_enable">1</field>
+                    </depends>
+                </field>
+                <field id="meta_keywords" translate="label" type="textarea" sortOrder="50" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Meta Keywords</label>
+                    <depends>
+                        <field id="faq_enable">1</field>
+                    </depends>
+                </field>
+                <field id="meta_description" translate="label" type="textarea" sortOrder="60" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Meta_description</label>
+                    <depends>
+                        <field id="faq_enable">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="slider_setting" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Slider Management</label>
+                <field id="enable_slider" translate="label comment" type="select" sortOrder="1" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Enable Slider</label>
+                    <comment>Enable Slider</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="slider_title" translate="label" type="text" sortOrder="2" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Slider Title</label>
+                    <depends>
+                        <field id="enable_slider">1</field>
+                    </depends>
+                </field>
+                <field id="slider_speed" translate="label" type="text" sortOrder="9" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Slider speed</label>
+                    <validate>validate-digits</validate>
+                    <depends>
+                        <field id="enable_slider">1</field>
+                    </depends>
+                </field>
+                <field id="infinite_looping" translate="label" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Enable infinite looping</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enable_slider">1</field>
+                    </depends>
+                </field>
+                <field id="autoplay" translate="label" type="select" sortOrder="12" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Auto play slider</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enable_slider">1</field>
+                    </depends>
+                </field>
+                <field id="arrows" translate="label" type="select" sortOrder="12" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Arrows</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enable_slider">1</field>
+                    </depends>
+                </field>
+                <field id="dot" translate="label" type="select" sortOrder="12" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Dots</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enable_slider">1</field>
+                    </depends>
+                </field>
+                <field id="autoplay_speed" translate="label" type="text" sortOrder="13" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Auto play slider speed</label>
+                    <validate>validate-digits</validate>
+                    <depends>
+                        <field id="enable_slider">1</field>
+                        <field id="autoplay">1</field>
+                    </depends>
+                </field>
+                <field id="slide_to_default" translate="label" type="text" sortOrder="3" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Slides to Default</label>
+                    <validate>validate-digits</validate>
+                    <depends>
+                        <field id="enable_slider">1</field>
+                    </depends>
+                </field>
+                <field id="slick_to_default" translate="label" type="text" sortOrder="6" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Slicks to scroll Default</label>
+                    <validate>validate-digits</validate>
+                    <depends>
+                        <field id="enable_slider">1</field>
+                    </depends>
+                </field>
+                <field id="breakpoints" translate="label" sortOrder="90" showInDefault="10" showInWebsite="1"
+                       showInStore="1">
+                    <label>Breakpoints</label>
+                    <frontend_model>MageINIC\Faq\Block\System\Config\DynamicRow</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                    <depends>
+                        <field id="enable_slider">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

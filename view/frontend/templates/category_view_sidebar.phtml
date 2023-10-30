@@ -1,0 +1,58 @@
+<?php
+/**
+ * MageINIC
+ * Copyright (C) 2023 MageINIC <support@mageinic.com>
+ *
+ * NOTICE OF LICENSE
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see https://opensource.org/licenses/gpl-3.0.html.
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category MageINIC
+ * @package MageINIC_Faq
+ * @copyright Copyright (c) 2023 MageINIC (https://www.mageinic.com/)
+ * @license https://opensource.org/licenses/gpl-3.0.html GNU General Public License,version 3 (GPL-3.0)
+ * @author MageINIC <support@mageinic.com>
+ */
+
+use MageINIC\Faq\Block\Category\Index;
+use Magento\Framework\Escaper;
+
+/**
+ * @var $block Index
+ * @var $escaper Escaper
+ */
+
+$data = $block->getListOfCategory();
+$isEnableExtension = $block->isEnableExtension();
+if ($isEnableExtension): ?>
+    <div class="faq-category">
+        <div class="category-title">
+            <strong>
+                <h3><?= $escaper->escapeHtml(__('FAQ Categories')); ?></h3>
+            </strong>
+        </div>
+        <div class="block-content">
+            <ol class="items">
+                <?php foreach ($data as $val): ?>
+                    <li class="item">
+                        <a href="<?= $escaper
+                            ->escapeUrl($block->getUrl('faq/category/view', ['id' => $val->getId()])); ?>">
+                            <?= $escaper->escapeHtml(__($val['category_name'])); ?>
+                            <?php $value = $block->getFaqQuesCount($val->getId()); ?>
+                            <span class="count">(<?= $escaper->escapeHtml(__($value->getSize())); ?>)</span>
+                        </a>
+                    </li>
+                <?php endforeach; ?>
+            </ol>
+        </div>
+    </div>
+<?php endif;?>

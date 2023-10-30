@@ -1,0 +1,144 @@
+<?php
+/**
+ * MageINIC
+ * Copyright (C) 2023 MageINIC <support@mageinic.com>
+ *
+ * NOTICE OF LICENSE
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see https://opensource.org/licenses/gpl-3.0.html.
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category MageINIC
+ * @package MageINIC_Faq
+ * @copyright Copyright (c) 2023 MageINIC (https://www.mageinic.com/)
+ * @license https://opensource.org/licenses/gpl-3.0.html GNU General Public License,version 3 (GPL-3.0)
+ * @author MageINIC <support@mageinic.com>
+ */
+
+use MageINIC\Faq\Block\Faq\Index;
+use Magento\Framework\Escaper;
+
+/**
+ * @var $block Index
+ * @var $escaper Escaper
+ */
+
+$enable = $block->isExtensionEnable();
+$faq_question = $block->getFaq();
+$faq_latestQue = $block->getLatestFaqCollection();
+$questions = $block->getCurrentFaqQuestion();
+if ($enable): ?>
+    <div class="faq-main-content" id="accordion" data-mage-init='{
+        "accordion":{
+            "active": [],
+            "collapsible": true,
+            "openedState": "active",
+            "multipleCollapsible": true
+        }}'>
+        <div class="faq-category-que">
+            <div class="faq-main-title">
+                <h3><?= $escaper->escapeHtml(__('Frequently Asked Questions')); ?></h3>
+            </div>
+            <div id="faq-info" class="faq-main">
+                <?php if ($block->getFaq()): ?>
+                    <ol class="items faqs-list">
+                        <?php foreach ($faq_question as $faqData): ?>
+                            <li class="item" data-role="collapsible">
+                                <div class="faq-title" data-role="trigger">
+                                    <strong>
+                                        <?= $escaper->escapeHtml(__('Q. ')) ?>
+                                        <?= $escaper->escapeHtml(__($faqData['title'])) ?>
+                                    </strong>
+                                    <span class="down-arrow"></span>
+                                </div>
+                                <div class="faq-ans" data-role="content">
+                                    <p><?= /* @noEscape */ $faqData['answer'] ?></p>
+                                    <div class="faq-details">
+                                        <?= $escaper->escapeHtml(__('By '))?>
+                                        <span class="faq-sender-name">
+                                            <strong>
+                                                <?= $faqData['sender_name'] ?>
+                                            </strong>
+                                        </span>
+                                        <?= $escaper->escapeHtml(__(
+                                            'On '))?>
+                                        <span class="faq-time">
+                                            <strong>
+                                                <?php $item = $faqData['created_date'];?>
+                                                <?= date_format(date_create($item), "F d, y h:i:s A"); ?>
+                                            </strong>
+                                        </span>
+                                    </div>
+                                </div>
+                            </li>
+                        <?php endforeach; ?>
+                    </ol>
+                <?php else: ?>
+                    <div class="items faqs-list">
+                        <div class="item no-question">
+                            <span>
+                               <?= $escaper->escapeHtml(__('There are no frequently asked questions was found.'));?>
+                            </span>
+                        </div>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+        <div class="faq-category-que">
+            <div class="faq-main-title">
+                <h3><?= $escaper->escapeHtml(__('Latest Questions')); ?></h3>
+            </div>
+            <div id="faq-info" class="faq-main">
+                <?php if ($block->getLatestFaqCollection()): ?>
+                    <ol class="items faqs-list">
+                        <?php foreach ($faq_latestQue as $faqData): ?>
+                            <li class="item" data-role="collapsible">
+                                <div class="faq-title" data-role="trigger">
+                                    <strong>
+                                        <?= $escaper->escapeHtml(__('Q. ')) ?>
+                                        <?= $escaper->escapeHtml(__($faqData['title'])) ?>
+                                    </strong>
+                                    <span class="down-arrow"></span>
+                                </div>
+                                <div class="faq-ans" data-role="content">
+                                    <p><?= /* @noEscape */ $faqData['answer'] ?></p>
+                                    <div class="faq-details">
+                                        <?= $escaper->escapeHtml(__('By '))?>
+                                        <span class="faq-sender-name">
+                                            <strong>
+                                                <?= $faqData['sender_name'] ?>
+                                            </strong>
+                                        </span>
+                                        <?= $escaper->escapeHtml(__('On ')) ?>
+                                        <span class="faq-time">
+                                            <strong>
+                                                <?php $item = $faqData['created_date'];?>
+                                                <?= date_format(date_create($item),"F d, y h:i:s A"); ?>
+                                            </strong>
+                                        </span>
+                                    </div>
+                                </div>
+                            </li>
+                        <?php endforeach; ?>
+                    </ol>
+                <?php else: ?>
+                    <div class="items faqs-list">
+                        <div class="item no-question">
+                            <span>
+                                <?= $escaper->escapeHtml(__('There are no latest questions was found.')); ?>
+                            </span>
+                        </div>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+<?php endif;?>

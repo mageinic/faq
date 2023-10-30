@@ -1,0 +1,66 @@
+<?php
+/**
+ * MageINIC
+ * Copyright (C) 2023 MageINIC <support@mageinic.com>
+ *
+ * NOTICE OF LICENSE
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see https://opensource.org/licenses/gpl-3.0.html.
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category MageINIC
+ * @package MageINIC_Faq
+ * @copyright Copyright (c) 2023 MageINIC (https://www.mageinic.com/)
+ * @license https://opensource.org/licenses/gpl-3.0.html GNU General Public License,version 3 (GPL-3.0)
+ * @author MageINIC <support@mageinic.com>
+ */
+
+use MageINIC\Faq\Block\Faq\QuestionsInfo;
+use Magento\Framework\Escaper;
+
+/**
+ * @var $block QuestionsInfo
+ * @var $escaper Escaper
+ */
+
+$enable = $block->isExtensionEnable();
+$collection = $block->getQuesAnsCollection();
+if ($enable): ?>
+    <div class="faq-content" id="faq-info">
+        <ol class="items faqs-list">
+            <?php foreach ($collection as $data): ?>
+                <li class="item">
+                    <div class="faq-ans-que">
+                        <div class="faq-title">
+                            <h4 class="question"><?= $escaper->escapeHtml(__($data['title'])) ?></h4>
+                            <div class="faq-description">
+                                <div class="faq-ans">
+                                    <?= /* @noEscape */ $data['answer']; ?>
+                                </div>
+                                <div class="faq-details">
+                                    <span class="faq-sender-name">
+                                        <?= $escaper->escapeHtml(__('By '))
+                                        . $escaper->escapeHtml(__($data['sender_name'])) ?>
+                                    </span>
+                                    <span class="faq-time">
+                                        <?php $item = $data['created_date'];?>
+                                        <?= $escaper->escapeHtml(__('On '))
+                                        . date_format(date_create($item), "F d, y h:i:s A"); ?>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            <?php endforeach; ?>
+        </ol>
+    </div>
+<?php endif; ?>

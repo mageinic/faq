@@ -1,0 +1,198 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * MageINIC
+ * Copyright (C) 2023 MageINIC <support@mageinic.com>
+ *
+ * NOTICE OF LICENSE
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see https://opensource.org/licenses/gpl-3.0.html.
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category MageINIC
+ * @package MageINIC_Faq
+ * @copyright Copyright (c) 2023 MageINIC (https://www.mageinic.com/)
+ * @license https://opensource.org/licenses/gpl-3.0.html GNU General Public License,version 3 (GPL-3.0)
+ * @author MageINIC <support@mageinic.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="MageINIC\Faq\Api\Data\CategoryInterface" type="MageINIC\Faq\Model\Category"/>
+    <preference for="MageINIC\Faq\Api\CategoryRepositoryInterface"
+                type="MageINIC\Faq\Model\CategoryRepository"/>
+    <preference for="MageINIC\Faq\Api\Data\CategorySearchResultsInterface"
+                type="Magento\Framework\Api\SearchResults"/>
+    <preference for="MageINIC\Faq\Api\Data\FaqInterface" type="MageINIC\Faq\Model\Faq"/>
+    <preference for="MageINIC\Faq\Api\FaqRepositoryInterface"
+                type="MageINIC\Faq\Model\FaqRepository"/>
+    <preference for="MageINIC\Faq\Api\Data\FaqSearchResultsInterface"
+                type="Magento\Framework\Api\SearchResults"/>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="faq_category_listing_data_source" xsi:type="string">
+                    MageINIC\Faq\Model\ResourceModel\Category\Grid\Collection
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="MageINIC\Faq\Model\ResourceModel\Category\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">mageinic_faq_category</argument>
+            <argument name="eventPrefix" xsi:type="string">mageinic_faq_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">mageinic_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">MageINIC\Faq\Model\ResourceModel\Category</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="faq_faq_listing_data_source" xsi:type="string">
+                    MageINIC\Faq\Model\ResourceModel\Faq\Grid\Collection
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="MageINIC\Faq\Model\ResourceModel\Faq\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">mageinic_faq</argument>
+            <argument name="eventPrefix" xsi:type="string">mageinic_faq_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">mageinic_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">MageINIC\Faq\Model\ResourceModel\Faq</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\Model\Entity\RepositoryFactory">
+        <arguments>
+            <argument name="entities" xsi:type="array">
+                <item name="MageINIC\Faq\Api\Data\CategoryInterface" xsi:type="string">
+                    MageINIC\Faq\Api\CategoryRepositoryInterface
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="MageINIC\Faq\Api\Data\CategoryInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">mageinic_faq_category</item>
+                    <item name="identifierField" xsi:type="string">category_id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\Operation\ExtensionPool">
+        <arguments>
+            <argument name="extensionActions" xsi:type="array">
+                <item name="MageINIC\Faq\Api\Data\CategoryInterface" xsi:type="array">
+                    <item name="read" xsi:type="array">
+                        <item name="storeReader" xsi:type="string">
+                            MageINIC\Faq\Model\ResourceModel\Category\Relation\Store\ReadHandler
+                        </item>
+                    </item>
+                    <item name="create" xsi:type="array">
+                        <item name="storeCreator" xsi:type="string">
+                            MageINIC\Faq\Model\ResourceModel\Category\Relation\Store\SaveHandler
+                        </item>
+                    </item>
+                    <item name="update" xsi:type="array">
+                        <item name="storeUpdater" xsi:type="string">
+                            MageINIC\Faq\Model\ResourceModel\Category\Relation\Store\SaveHandler
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\HydratorPool">
+        <arguments>
+            <argument name="hydrators" xsi:type="array">
+                <item name="MageINIC\Faq\Api\Data\CategoryInterface" xsi:type="string">
+                    Magento\Framework\EntityManager\AbstractModelHydrator
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\Model\Entity\RepositoryFactory">
+        <arguments>
+            <argument name="entities" xsi:type="array">
+                <item name="MageINIC\Faq\Api\Data\FaqInterface" xsi:type="string">
+                    MageINIC\Faq\Api\FaqRepositoryInterface
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="MageINIC\Faq\Api\Data\FaqInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">mageinic_faq</item>
+                    <item name="identifierField" xsi:type="string">faq_id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\Operation\ExtensionPool">
+        <arguments>
+            <argument name="extensionActions" xsi:type="array">
+                <item name="MageINIC\Faq\Api\Data\FaqInterface" xsi:type="array">
+                    <item name="read" xsi:type="array">
+                        <item name="storeReader" xsi:type="string">
+                            MageINIC\Faq\Model\ResourceModel\Faq\Relation\Store\ReadHandler
+                        </item>
+                    </item>
+                    <item name="create" xsi:type="array">
+                        <item name="storeCreator" xsi:type="string">
+                            MageINIC\Faq\Model\ResourceModel\Faq\Relation\Store\SaveHandler
+                        </item>
+                    </item>
+                    <item name="update" xsi:type="array">
+                        <item name="storeUpdater" xsi:type="string">
+                            MageINIC\Faq\Model\ResourceModel\Faq\Relation\Store\SaveHandler
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\HydratorPool">
+        <arguments>
+            <argument name="hydrators" xsi:type="array">
+                <item name="MageINIC\Faq\Api\Data\FaqInterface" xsi:type="string">
+                    Magento\Framework\EntityManager\AbstractModelHydrator
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="MageINIC\Faq\CustomImageUpload" type="MageINIC\Faq\Model\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">MageINIC/faq/tmp/image</argument>
+            <argument name="basePath" xsi:type="string">MageINIC/faq/image</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="gif" xsi:type="string">gif</item>
+                <item name="png" xsi:type="string">png</item>
+                <item name="svg" xsi:type="string">svg</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="MageINIC\Faq\Controller\Adminhtml\Category\Upload">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">MageINIC\Faq\CustomImageUpload</argument>
+        </arguments>
+    </type>
+    <type name="MageINIC\Faq\Controller\Adminhtml\Category\Save">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">MageINIC\Faq\CustomImageUpload</argument>
+        </arguments>
+    </type>
+</config>

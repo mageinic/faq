@@ -1,0 +1,86 @@
+<?php
+/**
+ * MageINIC
+ * Copyright (C) 2023 MageINIC <support@mageinic.com>
+ *
+ * NOTICE OF LICENSE
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see https://opensource.org/licenses/gpl-3.0.html.
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category MageINIC
+ * @package MageINIC_Faq
+ * @copyright Copyright (c) 2023 MageINIC (https://www.mageinic.com/)
+ * @license https://opensource.org/licenses/gpl-3.0.html GNU General Public License,version 3 (GPL-3.0)
+ * @author MageINIC <support@mageinic.com>
+ */
+
+use MageINIC\Faq\Block\Category\View;
+use Magento\Framework\Escaper;
+
+/**
+ * @var $block View
+ * @var $escaper Escaper
+ */
+
+$categoryFaqQue = $block->getCategoryFaqQuestion();
+$isEnableExtension = $block->isEnableExtension();
+if ($isEnableExtension):?>
+    <div class="category-view-content faq-category-que" id="accordion" data-mage-init='{
+        "accordion":{
+            "active": [],
+            "collapsible": true,
+            "openedState": "active",
+            "multipleCollapsible": true
+        }}'>
+        <div class="faq-content faq-main">
+            <?php if ($block->getCategoryFaqQuestion()): ?>
+                <div class="category-faq items faqs-list">
+                    <?php foreach ($categoryFaqQue as $value): ?>
+                        <div class="item">
+                            <div class="category-title faq-title" data-role="collapsible" >
+                                <strong>
+                                    <?= $escaper->escapeHtml(__('Q.')) ?>
+                                        <?= $escaper->escapeHtml(__($value['title'])) ?>
+                                </strong>
+                                <span class="down-arrow"></span>
+                            </div>
+                            <div class="faq-answer faq-ans" data-role="content">
+                                <p><?= /* @noEscape */ $value['answer'] ?></p>
+                                <div class="faq-details">
+                                    <?= $escaper->escapeHtml(__('By ')) ?>
+                                    <span class="faq-sender-name">
+                                        <strong>
+                                            <?= $value['sender_name'] ?>
+                                        </strong>
+                                    </span>
+                                    <?= $escaper->escapeHtml(__('On ')) ?>
+                                    <span class="faq-time">
+                                        <?php $item = $value['created_date'];?>
+                                        <strong>
+                                            <?= date_format(date_create($item), "F d, y h:i:s A"); ?>
+                                        </strong>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php else: ?>
+                <div class="faqs-list">
+                    <div class="no-question">
+                        <span><?= $escaper->escapeHtml(__('There are no FAQs was found.')) ?></span>
+                    </div>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php endif;?>

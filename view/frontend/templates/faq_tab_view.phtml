@@ -1,0 +1,201 @@
+<?php
+/**
+ * MageINIC
+ * Copyright (C) 2023 MageINIC <support@mageinic.com>
+ *
+ * NOTICE OF LICENSE
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see https://opensource.org/licenses/gpl-3.0.html.
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category MageINIC
+ * @package MageINIC_Faq
+ * @copyright Copyright (c) 2023 MageINIC (https://www.mageinic.com/)
+ * @license https://opensource.org/licenses/gpl-3.0.html GNU General Public License,version 3 (GPL-3.0)
+ * @author MageINIC <support@mageinic.com>
+ */
+
+use MageINIC\Faq\Block\Faq\View;
+use Magento\Framework\Escaper;
+
+/**
+ * @var $block View
+ * @var $escaper Escaper
+ */
+
+$product = $block->getCurrentProduct();
+$customerData = $block->getCurrentCustomer();
+$enable = $block->isExtensionEnable();
+$formUrl = $block->setFormAction('faq/faq/faqpopupform');
+$faqCollection = $block->getFaqCollection($product->getId());
+if ($enable): ?>
+    <div class="faq-content" id="faq-info">
+        <ol class="items faqs-list">
+            <?php foreach ($faqCollection as $faqData): ?>
+                <li class="item">
+                    <div class="faq-ans-que">
+                        <div class="title">
+                            <strong>
+                                <?= $escaper->escapeHtml(__('Question: ')) ?>
+                                <?= $escaper->escapeHtml(__($faqData['title'])) ?>
+                            </strong>
+                        </div>
+                        <div class="faq-description">
+                            <strong>
+                                <?= $escaper->escapeHtml(__('Answer: ')) ?>
+                            </strong>
+                            <div class="faq-ans">
+                                <?= /* @noEscape */ $faqData['answer']?>
+                            </div>
+                            <div class="faq-details">
+                                <span class="faq-sender-name">
+                                    <?= $escaper->escapeHtml(__('By '))
+                                    . $escaper->escapeHtml(__($faqData['sender_name'])) ?>
+                                </span>
+                                <span class="faq-time">
+                                    <?php $item = $faqData['created_date']; ?>
+                                    <?= $escaper->escapeHtml(__('On '))
+                                    . date_format(date_create($item), "F d, y h:i:s A") ?>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            <?php endforeach; ?>
+        </ol>
+    </div>
+    <div class="faq-ques-more-detail">
+        <a href="<?= $escaper->escapeUrl($block->setMoreInformation('faq/index/index')) ?>">
+            <?= $escaper->escapeHtml(__('Read More All Questions and Answers')) ?>
+        </a>
+    </div>
+    <div class="faq-ask-question">
+        <h3><?= $escaper->escapeHtml(__('Have a Question?')) ?></h3>
+        <p><?= $escaper->escapeHtml(__('Get Answer from experts and customer who have used this item.')) ?></p>
+        <button id="click-me" class="action submit primary">
+            <?= $escaper->escapeHtml(__('Ask a Questions')) ?>
+        </button>
+    </div>
+    <div id="popup-modal">
+        <form class="form"
+              id="faq-form"
+              method="post"
+              data-mage-init='{"validation":{}}'
+              autocomplete="off" action=""
+              enctype='multipart/form-data'
+              data-hasrequired="<?= $escaper->escapeHtml(__('* Required Fields')) ?>">
+            <fieldset class="fieldset">
+                <legend class="legend">
+                    <span><?= $escaper->escapeHtml(__('Write Your Own Question')) ?></span>
+                </legend>
+                <div id="response-message"></div>
+                <input type="hidden" name="form_key" value="<?= $escaper->escapeHtml(__($block->getFormKey())) ?>"/>
+                <input type="hidden" name="product_id" id="product_id"
+                       value="<?= $escaper->escapeHtml(__($product->getId())) ?>"/>
+                <input type="hidden" name="status" id="status" value="0"/>
+                <input type="hidden" name="visibility" id="visibility" value="0"/>
+                <div class="field faq details required">
+                    <label for="sender_name" class="label">
+                        <span><?= $escaper->escapeHtml(__('Name')) ?></span>
+                    </label>
+                    <div class="control">
+                        <input type="text" name="sender_name" id="sender_name"
+                               value="<?php if ($customerData): ?>
+                                            <?= $escaper->escapeHtml(__($customerData->getName()));
+                                        endif; ?>"
+                               title="<?= $escaper->escapeHtml(__('Name')) ?>"
+                               class="input-text" data-validate="{required:true}"
+                               placeholder="<?= $escaper->escapeHtml(__('Name')) ?>">
+                    </div>
+                </div>
+                <div class="field faq details required">
+                    <label for="sender_email" class="label">
+                        <span><?= $escaper->escapeHtml(__('Email Address')) ?></span>
+                    </label>
+                    <div class="control">
+                        <input type="email" name="sender_email" id="sender_email"
+                               value="<?php if ($customerData): ?>
+                                            <?= $escaper->escapeHtml(__($customerData->getEmail()));
+                                        endif; ?>"
+                               title="<?= $escaper->escapeHtml(__('Email Address')) ?>"
+                               class="input-text" data-validate="{required:true}"
+                               placeholder="<?= $escaper->escapeHtml(__('Email Address')) ?>">
+                    </div>
+                </div>
+                <div class="field faq details required">
+                    <label for="title" class="label">
+                        <span><?= $escaper->escapeHtml(__('Question')) ?></span>
+                    </label>
+                    <div class="control">
+                        <input type="text" name="title" id="title" value=""
+                               title="<?= $escaper->escapeHtml(__('Question')) ?>"
+                               class="input-text" data-validate="{required:true}"
+                               placeholder="<?= $escaper->escapeHtml(__('Question')) ?>">
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <script>
+        require([
+            'jquery',
+            'Magento_Ui/js/modal/modal'
+        ], function ($, modal) {
+            var options = {
+                type: 'popup',
+                responsive: false,
+                innerScroll: false,
+                modalClass: 'modal-custom',
+                buttons: [{
+                    text: $.mage.__('Submit'),
+                    class: 'faqmodal',
+                    click: function (data) {
+                        var dataForm = $('#faq-form');
+                        var responseMessage = $("#response-message");
+                        if (dataForm.validation('isValid')) {
+                            var sender_name = $("#sender_name").val();
+                            var sender_email = $("#sender_email").val();
+                            if (sender_name && sender_email) {
+                                $.ajax({
+                                    url: "<?= $escaper->escapeJs($formUrl); ?>",
+                                    dataType: 'json',
+                                    type: 'POST',
+                                    data: $("#faq-form").serialize(),
+                                    success: function (data) {
+                                        if (data.status === "success") {
+                                            $("#faq-form").trigger("reset");
+                                            responseMessage.addClass("success");
+                                            responseMessage.html(data.message).css({
+                                                "background-color": "green"
+                                            });
+                                        } else {
+                                            responseMessage.addClass("error");
+                                            responseMessage.html(data.message).css({
+                                                "background-color": "red"
+                                            });
+                                        }
+                                    }
+                                });
+                            }
+                            setTimeout(function () {
+                                $("#popup-modal").modal("closeModal");
+                            }, 2000);
+                        }
+                    }
+                }]
+            };
+            var popup = modal(options, $('#popup-modal'));
+            $("#click-me").on('click', function () {
+                $("#popup-modal").modal("openModal");
+            });
+        });
+    </script>
+<?php endif; ?>
