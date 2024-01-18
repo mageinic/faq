@@ -36,7 +36,7 @@
             <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
                    showInStore="1">
                 <label>FAQ Configuration</label>
-                <field id="faq_enable" translate="label comment" type="select" sortOrder="10" showInDefault="1"
+                <field id="faq_enable" translate="label" type="select" sortOrder="10" showInDefault="1"
                        showInWebsite="0" showInStore="0">
                     <label>Enable</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
@@ -48,7 +48,7 @@
                         <field id="faq_enable">1</field>
                     </depends>
                 </field>
-                <field id="footer_link_display" translate="label comment" type="select" sortOrder="30" showInDefault="1"
+                <field id="footer_link_display" translate="label" type="select" sortOrder="30" showInDefault="1"
                        showInWebsite="0" showInStore="0">
                     <label>Footer Link Display</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>

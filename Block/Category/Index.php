@@ -246,4 +246,14 @@ class Index extends Template implements BlockInterface
             'responsive' => $this->helper->getBreakPoints()
         ];
     }
+
+    /**
+     * Get Helper Data
+     *
+     * @return Data
+     */
+    public function getHelperData()
+    {
+        return $this->helper;
+    }
 }
